@@ -202,6 +202,7 @@
 /reference:"/Applications/Unity/Hub/Editor/2020.3.27f1c1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.dll"
 /reference:"/Applications/Unity/Hub/Editor/2020.3.27f1c1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll"
 /reference:"/Users/Beyoung/Desktop/Projects/Unity/LittleFox/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll"
+/reference:"Library/ScriptAssemblies/Cinemachine.dll"
 /reference:"Library/ScriptAssemblies/PsdPlugin.dll"
 /reference:"Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll"
 /reference:"Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll"
@@ -232,6 +233,7 @@
 /reference:"Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll"
 /reference:"Library/ScriptAssemblies/UnityEditor.UI.dll"
 /reference:"Library/ScriptAssemblies/UnityEngine.UI.dll"
+/reference:"Library/ScriptAssemblies/com.unity.cinemachine.editor.dll"
 /define:CSHARP_7_3_OR_NEWER
 /define:CSHARP_7_OR_LATER
 /define:DEBUG
@@ -340,4 +342,5 @@
 /define:UNITY_STANDALONE_OSX
 /define:UNITY_TEAM_LICENSE
 /define:USE_SEARCH_ENGINE_API
+"Assets/Scripts/CameraControl.cs"
 "Assets/Scripts/PlayerContronller.cs"

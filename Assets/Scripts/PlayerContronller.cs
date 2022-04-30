@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class PlayerContronller : MonoBehaviour
 {
@@ -11,6 +13,13 @@ public class PlayerContronller : MonoBehaviour
     public float speed;
     public float jumpForce;
     public LayerMask ground;
+    public int Cherry;
+    // 22.09 创建text类
+    public Text CherryNum;
+
+    // public int Gem;
+    // 22.09 创建text类
+    // public Text GemNum;
 
 
     // Start is called before the first frame update
@@ -54,10 +63,11 @@ public class PlayerContronller : MonoBehaviour
         }
 
         // 实现跳跃
-        if (Input.GetButtonDown("Jump")){
+        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground)) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);
             // 跳跃动画
             anim.SetBool("jumping", true);
+
         }
 
     }
@@ -75,6 +85,31 @@ public class PlayerContronller : MonoBehaviour
         }else if (coll.IsTouchingLayers(ground)){  // 此时碰撞地面了
             anim.SetBool("falling", false);
             anim.SetBool("idle", true);  // 掉落地面后会一直保持为true
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {  // 只有碰撞到isTrigger触发效果时
+        // if (collision.gameObject.CompareTag("Coin")){
+        if (collision.tag == "Collection"){
+            Destroy(collision.gameObject);
+            Cherry++;
+            CherryNum.text = Cherry.ToString();  // 这里容易忘了.text
+        }
+    }
+
+
+    // 消灭敌人
+    private void OnCollisionEnter2D(Collision2D collision) { //区别在于,这是两个刚体碰撞
+        // if (collision.gameObject.CompareTag("Enemy")){  // 函数写法不同, 需要collision后加上gameObject, 调用的是整个大的部分
+        if (anim.GetBool("falling")){
+            if (collision.gameObject.tag == "Enemy"){  // 函数写法不同, 需要collision后加上gameObject, 调用的是整个大的部分
+
+                Destroy(collision.gameObject);
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);  // 实现有个小跳的效果
+                // 跳跃动画
+                anim.SetBool("jumping", true);
+
+        }
         }
     }
 
