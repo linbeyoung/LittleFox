@@ -101,12 +101,13 @@ public class PlayerContronller : MonoBehaviour
     // 消灭敌人
     private void OnCollisionEnter2D(Collision2D collision) { //区别在于,这是两个刚体碰撞
         // if (collision.gameObject.CompareTag("Enemy")){  // 函数写法不同, 需要collision后加上gameObject, 调用的是整个大的部分
-        if (anim.GetBool("falling")){
-            if (collision.gameObject.tag == "Enemy"){  // 函数写法不同, 需要collision后加上gameObject, 调用的是整个大的部分
+        if (collision.gameObject.tag == "Enemy"){
+            if (anim.GetBool("falling")){  // 函数写法不同, 需要collision后加上gameObject, 调用的是整个大的部分
 
                 Destroy(collision.gameObject);
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);  // 实现有个小跳的效果
                 // 跳跃动画
+                anim.SetBool("falling", false);
                 anim.SetBool("jumping", true);
 
         }
