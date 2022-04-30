@@ -110,6 +110,11 @@ public class PlayerContronller : MonoBehaviour
                 anim.SetBool("falling", false);
                 anim.SetBool("jumping", true);
 
+        }else if (transform.positon.x > collision.gameObject.transform.position.x){  // 处在敌人右边
+                rb.velocity = new Vector2( -5, rb.velocity.y);
+            }
+        else if (transform.positon.x < collision.gameObject.transform.position.x){  // 处在敌人左边
+                rb.velocity = new Vector2( -5, rb.velocity.y);
         }
         }
     }
