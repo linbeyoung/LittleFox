@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
     public GameObject pauseMenu;  // 📒 获得暂停菜单
+    public AudioMixer audioMixer; // 📒 获得主音量控制器
+    public Slider slider;
+
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -34,5 +38,12 @@ public class Menu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    // 绑定滑块的值
+
+    public void SetVolume(float value)
+    {
+        audioMixer.SetFloat("MainVolume", slider.value);
     }
 }

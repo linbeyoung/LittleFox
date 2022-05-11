@@ -13,8 +13,10 @@ public class PlayerContronller : MonoBehaviour
     public Collider2D coll;
     public Collider2D DisColl;  // 可以关掉的碰撞器;
 
-    public Transform CellingCheck;
+    public Transform CellingCheck, GroundCheck;
+
     public AudioSource jumpAudio, hurtAudio, cherryAudio;
+    public Joystick joystick;
     [Space]
     public float speed;
     public float jumpForce;
@@ -25,6 +27,9 @@ public class PlayerContronller : MonoBehaviour
     public Text CherryNum;
     // 判断hurt
     private bool isHurt;
+    // 5.11
+    private bool isGround;
+    private int extraJump;
 
     // public int Gem;
     // 22.09 创建text类
@@ -50,21 +55,28 @@ public class PlayerContronller : MonoBehaviour
             Movement();
         }
         SwithAnim();
+        isGround = Physics2D.OverlapCircle(GroundCheck.position, 0.2f, ground);  // groundcheck的位置, 检测的范围, 检测的层
     }
 
     void Update() // update和fixedupdate可以同时使用
     // void Update() 
     {   
-        Jump();
+        // Jump();
         Crouch();
         CherryNum.text = Cherry.ToString();  // 这里容易忘了.text
+        newJump();
     }
 
 
     void Movement(){
-        // 角色移动
+        // 角色移动  mac端
         float x = Input.GetAxis("Horizontal");  // -1, 0, 1 从input获取水平轴的值
         float face = Input.GetAxisRaw("Horizontal");  // -1, 0, 1 只有三个取值, 获取人物当前转向
+
+        // ios端
+        // float x = joystick.Horizontal;  // -1, 0, 1 从input获取水平轴的值
+        // float face = Input.GetAxisRaw("Horizontal");  // -1, 0, 1 只有三个取值, 获取人物当前转向
+
         // float y = Input.GetAxis("Vertical");
         // float horizontalmove;
         // horizontalmove = Input.GetAxis("Horizontal");
@@ -174,17 +186,29 @@ public class PlayerContronller : MonoBehaviour
         }
     }
 
-    void Jump(){
-        // 实现跳跃
-        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground)) {
-            // rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);
-            rb.velocity = new Vector2(0, jumpForce * Time.deltaTime);
-            jumpAudio.Play();
-            // 跳跃动画
-            anim.SetBool("jumping", true);
-        }
+    // void Jump(){
+    //     // 实现跳跃
+    //     if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground)) {
+    //         // rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);
+    //         rb.velocity = new Vector2(0, jumpForce * Time.deltaTime);
+    //         jumpAudio.Play();
+    //         // 跳跃动画
+    //         anim.SetBool("jumping", true);
+    //     }
 
-        Crouch();
+    //    // Crouch();
+    // }
+    void newJump(){
+        // 实现跳跃
+        if (isGround)
+        {
+            extraJump = 1;
+        }
+        if (Input.GetButtonDown("Jump")  && extraJump > 0) {
+            rb.velocity = Vector2.up * jumpForce;  // 一个可以学习的新写法
+            extraJump--;
+            anim.SetBool("jumping", true);
+    }
     }
 
     // 趴下
