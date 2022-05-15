@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
@@ -44,6 +42,6 @@ public class Menu : MonoBehaviour
 
     public void SetVolume(float value)
     {
-        audioMixer.SetFloat("MainVolume", slider.value);
+        audioMixer.SetFloat("MainVolume", value);
     }
 }

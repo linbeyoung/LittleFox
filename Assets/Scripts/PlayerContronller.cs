@@ -15,7 +15,7 @@ public class PlayerContronller : MonoBehaviour
 
     public Transform CellingCheck, GroundCheck;
 
-    public AudioSource jumpAudio, hurtAudio, cherryAudio;
+    // public AudioSource jumpAudio, hurtAudio, cherryAudio;
     public Joystick joystick;
     [Space]
     public float speed;
@@ -139,11 +139,12 @@ public class PlayerContronller : MonoBehaviour
         // if (collision.gameObject.CompareTag("Coin")){
         // 收集物品
         if (collision.tag == "Collection"){
-            cherryAudio.Play();
+            // cherryAudio.Play();
             // Destroy(collision.gameObject);
             // Cherry++;
             collision.GetComponent<Animator>().Play("isGot");
             // CherryNum.text = Cherry.ToString();  // 这里容易忘了.text
+            SoundManager.instance.CherryAudio();
         }
 
         if (collision.tag == "Deadline"){
@@ -173,14 +174,17 @@ public class PlayerContronller : MonoBehaviour
                 // Destroy(collision.gameObject);
 
             }
+        // 受伤
         else if (transform.position.x > collision.gameObject.transform.position.x){  // 处在敌人右边
                 rb.velocity = new Vector2( -5, rb.velocity.y);
-                hurtAudio.Play();
+                // hurtAudio.Play();
+                SoundManager.instance.HurtAudio();
                 isHurt = true;
             }
         else if (transform.position.x < collision.gameObject.transform.position.x){  // 处在敌人左边
                 rb.velocity = new Vector2(5, rb.velocity.y);
-                hurtAudio.Play();
+                // hurtAudio.Play();
+                SoundManager.instance.HurtAudio();
                 isHurt = true;
         }
         }
@@ -207,6 +211,9 @@ public class PlayerContronller : MonoBehaviour
         if (Input.GetButtonDown("Jump")  && extraJump > 0) {
             rb.velocity = Vector2.up * jumpForce;  // 一个可以学习的新写法
             extraJump--;
+            // SoundManager soundManager = gameObject.GetComponent<SoundManager>();
+            // soundManager.jumpAudio();
+            SoundManager.instance.JumpAudio();
             anim.SetBool("jumping", true);
     }
     }

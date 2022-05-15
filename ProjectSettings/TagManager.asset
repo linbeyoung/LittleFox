@@ -7,6 +7,7 @@ TagManager:
   - Collection
   - Enemy
   - Deadline
+  - staris
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - stairs
   - middle
   - Ground
   - 
@@ -50,12 +51,15 @@ TagManager:
   - name: Environment
     uniqueID: 2061339679
     locked: 0
-  - name: player
-    uniqueID: 3811667563
-    locked: 0
   - name: foreground
     uniqueID: 308188569
     locked: 0
   - name: Ground
     uniqueID: 3699074821
+    locked: 0
+  - name: stairs
+    uniqueID: 475534625
+    locked: 0
+  - name: player
+    uniqueID: 3811667563
     locked: 0

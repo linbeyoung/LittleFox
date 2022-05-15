@@ -17,7 +17,8 @@ public class Cherry : MonoBehaviour
     // }
     public void Death()
     {
-        FindObjectOfType<PlayerContronller>().CherryCount();  // 找到这行代码
+        // FindObjectOfType<PlayerContronller>().CherryCount();  // 找到这行代码
+        FindObjectOfType<FinalMovement>().CherryCount();  // 找到这行代码
         Destroy(gameObject);
 
     }
